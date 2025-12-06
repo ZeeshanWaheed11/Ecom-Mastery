@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Conversational AI platform for Ecommerce | Gorgias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #1a1a1a;
+            --primary-white: #ffffff;
+            --coral: #ff9b7a;
+            --coral-hover: #ff8562;
+            --peach-light: #ffe8e0;
+            --peach-bg: #ffd4c4;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e7;
+            --gray-300: #d4d4d8;
+            --gray-400: #a1a1aa;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+        }
+
+        body {
+            font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--primary-black);
+            background: var(--primary-white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            position: relative;
+            z-index: 100;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .top-banner a {
+            color: var(--primary-white);
+            text-decoration: none;
+            margin-left: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            transition: border-bottom 0.3s;
+            padding-bottom: 2px;
+        }
+
+        .top-banner a:hover {
+            border-bottom: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #1a1a1a;
+            backdrop-filter: blur(10px);
+            padding: 16px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: none;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--primary-white);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--primary-white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--primary-white);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-white);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: var(--coral);
+            color: var(--primary-black);
+            box-shadow: 0 2px 8px rgba(255, 155, 122, 0.3);
+            font-weight: 400;
+        }
+
+        .btn-primary:hover {
+            background: var(--coral-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 155, 122, 0.4);
+        }
+
+        .btn-secondary-dark {
+            background: transparent;
+            color: var(--primary-black);
+            border: 1.5px solid var(--primary-black);
+        }
+
+        .btn-secondary-dark:hover {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 100px;
+            background: linear-gradient(180deg, #ffd4c4 0%, #ffe8e0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 155, 122, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: var(--primary-white);
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 12px;
+            font-weight: 400;
+            margin-bottom: 28px;
+            letter-spacing: 0.5px;
+            border: 1px solid var(--primary-black);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            position: relative;
+            color: var(--primary-black);
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 400;
+            line-height: 1.08;
+            margin-bottom: 28px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            position: relative;
+            color: var(--primary-black);
+        }
+
+        .hero p {
+            font-size: 21px;
+            color: var(--gray-600);
+            margin-bottom: 44px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.65;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            position: relative;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+            position: relative;
+        }
+
+        .btn-large {
+            padding: 18px 38px;
+            font-size: 16px;
+            border-radius: 10px;
+            font-weight: 400;
+        }
+
+        /* Brand Logos */
+        .brand-logos {
+            padding: 60px 40px 80px;
+            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .brand-logos-title {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gray-500);
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .logos-grid {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .logos-grid::before,
+        .logos-grid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logos-grid::before {
+            left: 0;
+            background: linear-gradient(to right, #ffd4c4, transparent);
+        }
+
+        .logos-grid::after {
+            right: 0;
+            background: linear-gradient(to left, #ffd4c4, transparent);
+        }
+
+        .logos-track {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            animation: scroll 40s linear infinite;
+            width: max-content;
+        }
+
+        .logos-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            height: 40px;
+            width: auto;
+            opacity: 0.6;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(100%);
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+
+        .logo-item img {
+            height: 100%;
+            width: auto;
+            max-width: 150px;
+            object-fit: contain;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 40px;
+            background: linear-gradient(180deg, #ffd4c4 0%, #ffe8e0 100%);
+            position: relative;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 80px;
+            letter-spacing: -1px;
+            color: var(--primary-black);
+        }
+
+        .feature-content-block {
+            max-width: 1300px;
+            margin: 0 auto 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .feature-content-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-text h3 {
+            font-size: 40px;
+            font-weight: 400;
+            margin-bottom: 24px;
+            line-height: 1.15;
+            letter-spacing: -0.8px;
+        }
+
+        .feature-text p {
+            font-size: 19px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .feature-image {
+            background: #f5f5f5;
+            border-radius: 24px;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s;
+            border: 1px solid var(--gray-200);
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .feature-image:hover {
+            transform: scale(1.02);
+        }
+
+        .feature-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Product Suites - REMOVED, not using this anymore */
+
+        /* Feature Link in tabs */
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--primary-black);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 15px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .feature-link:hover {
+            gap: 8px;
+        }
+
+        /* Journey Blocks */
+        .journey-blocks {
+            padding: 0 40px 80px;
+            background: linear-gradient(180deg, #ffd4c4 0%, #ffe8e0 100%);
+        }
+
+        .journey-block {
+            max-width: 1300px;
+            margin: 0 auto 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .journey-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .journey-block.reverse {
+            direction: rtl;
+        }
+
+        .journey-block.reverse > * {
+            direction: ltr;
+        }
+
+        .journey-block-content h3 {
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .journey-block-content p {
+            font-size: 18px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+
+        .journey-block-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .journey-block-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .journey-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .journey-link {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 15px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .journey-link:hover {
+            gap: 8px;
+        }
+
+        .journey-link::after {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 2px;
+            background: var(--primary-black);
+            transition: width 0.3s;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        /* Journey Section */
+        .journey-section {
+            padding: 100px 40px 80px;
+            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
+            text-align: center;
+        }
+
+        .journey-section h2 {
+            font-size: 48px;
+            font-weight: 400;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 0;
+            background: #1a1a1a;
+            color: var(--primary-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+            min-height: 600px;
+        }
+
+        .testimonial-image {
+            width: 100%;
+            height: 100%;
+        }
+
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-content {
+            padding: 80px 60px;
+        }
+
+        .testimonial-quote-large {
+            font-size: 32px;
+            line-height: 1.4;
+            margin-bottom: 40px;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .testimonial-author-large {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .author-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .author-details {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar-small {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gray-600);
+        }
+
+        .author-details h4 {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .author-details p {
+            font-size: 14px;
+            color: var(--gray-400);
+            font-weight: 400;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 30px 0;
+            background: #1a1a1a;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: var(--primary-white);
+        }
+
+        /* Rated Section */
+        .rated-section {
+            padding: 80px 40px;
+            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
+            text-align: center;
+        }
+
+        .rated-section h2 {
+            font-size: 42px;
+            font-weight: 400;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+        }
+
+        .rating-badges-inline {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .rating-badge-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 12px 24px;
+            background: var(--primary-white);
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
+            color: var(--primary-black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 155, 122, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            font-size: 52px;
+            font-weight: 400;
+            margin-bottom: 48px;
+            letter-spacing: -1px;
+            position: relative;
+            color: var(--primary-black);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .btn-white {
+            background: var(--primary-white);
+            color: var(--primary-black);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1.5px solid var(--primary-black);
+        }
+
+        .btn-white:hover {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 0 40px 80px;
+            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
+        }
+
+        .video-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .video-container img,
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--primary-white);
+            padding: 90px 40px 50px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 70px;
+            margin-bottom: 70px;
+        }
+
+        .footer-column h3 {
+            font-size: 13px;
+            font-weight: 400;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--gray-400);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 14px;
+        }
+
+        .footer-column a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-block;
+            font-weight: 400;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-white);
+            transform: translateX(3px);
+        }
+
+        .footer-column .non-clickable {
+            color: var(--gray-400);
+            font-size: 14px;
+            font-weight: 400;
+            cursor: default;
+            display: inline-block;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom > div:first-child {
+            color: var(--gray-500);
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-legal a:hover {
+            color: var(--gray-300);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .hero p {
+                font-size: 19px;
+            }
+
+            .feature-content-block,
+            .journey-block,
+            .testimonial-hero {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .journey-block.reverse {
+                direction: ltr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-block-content h3 {
+                font-size: 32px;
+            }
+
+            .feature-text h3 {
+                font-size: 32px;
+            }
+
+            .features h2,
+            .testimonials h2,
+            .cta-section h2,
+            .journey-section h2,
+            .rated-section h2 {
+                font-size: 32px;
+            }
+
+            .testimonial-quote-large {
+                font-size: 24px;
+            }
+
+            .testimonial-content {
+                padding: 40px 20px;
+            }
+
+            .logos-track {
+                animation-duration: 30s;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-large {
+                width: 100%;
+            }
+
+            .navbar {
+                padding: 16px 20px;
+            }
+
+            .logos-track {
+                animation-duration: 25s;
+            }
+
+            .logo-item {
+                height: 30px;
+            }
+
+            .logo-item img {
+                max-width: 100px;
+            }
+
+            .journey-section h2 {
+                font-size: 28px;
+            }
+
+            .testimonial-hero {
+                min-height: auto;
+            }
+
+            .testimonial-quote-large {
+                font-size: 20px;
+            }
+
+            .rating-badges-inline {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+    <script>
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            gorgias
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Product tour ▾</a></li>
+            <li><a href="#">Enterprise</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Partners ▾</a></li>
+            <li><a href="#">Resources ▾</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="#" class="btn btn-secondary">Log in</a>
+            <a href="#" class="btn btn-primary">Sign up free</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-label">Built For Ecommerce</div>
+        <h1>Sell more and resolve support inquiries with Conversational AI</h1>
+        <p>Where customer conversations feel personal, generate sales, and fuel your brand's growth</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn btn-primary btn-large">Start free trial</a>
+            <a href="#" class="btn btn-secondary-dark btn-large">Book a demo</a>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ff365cafad226492b7_psycho%20bunny.avif" alt="Gorgias AI Agent Demo" />
+        </div>
+    </section>
+
+    <!-- Brand Logos -->
+    <section class="brand-logos">
+        <p class="brand-logos-title">Trusted by 15,000 brands on their journey from first order to hundreds of millions in sales globally</p>
+        <div class="logos-grid">
+            <div class="logos-track">
+                <!-- First set of logos -->
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67fd279fda3c5e93f1845e38_Simple_human_dark.svg?v=1765025636" alt="Simple Human"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f8f08a662662256bf0952c_5f05b2c6057f36b46e357666_mvmt.avif?v=1765025636" alt="MVMT"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e9478afc058572df8875_Clove.avif?v=1765025636" alt="Clove"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/678e0eb1e79264d35bea0a5e_sill-logo-black.svg?v=1765025636" alt="Sill"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d43ca847d93ae380d14d05_juiceplus_black_logo_400px.svg?v=1765025636" alt="Juice Plus"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d431667cad4d3069faaafd_new_era_black_logo_400px.svg?v=1765025636" alt="New Era"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/676179778902937db618e87b_Reebok.avif?v=1765025636" alt="Reebok"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67443a858784f4c9ac1119a6_mrbeast.avif?v=1765025636" alt="MrBeast"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f583ee90c450dd7f33b9a_Arc_teryx_black.svg?v=1765025636" alt="Arc'teryx"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f585858bdb379a9aacdb7_RipCurl_black.svg?v=1765025636" alt="Rip Curl"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f455378b595bc63c5af91_Quicksilver_black.svg?v=1765025636" alt="Quicksilver"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/688338defc735726fbfc2647_Psychobunny.svg?v=1765025636" alt="Psycho Bunny"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/66e2a0e5b89b0fef3a1e9fcb_Babygold_logo.svg?v=1765025636" alt="Baby Gold"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d433c1c29968a8b452ac55_glamnetic_black_logo.svg?v=1765025636" alt="Glamnetic"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e860f7705d281cbcf381_Olipop.avif?v=1765025636" alt="Olipop"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d42d4311820bdd38151be3_princess_polly_black_logo.svg?v=1765025636" alt="Princess Polly"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f04b8ee97b4139f0f5eec9c_bokksu-1.svg?v=1765025636" alt="Bokksu"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a6217d606ce53594885d_dark.svg?v=1765025637" alt="Brand"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a0705c64239df6a2be0f_dark.svg?v=1765025637" alt="Brand"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05bbc12593861174dd63e3_timbuk2-1.svg?v=1765025636" alt="Timbuk2"></div>
+                
+                <!-- Duplicate set for seamless loop -->
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67fd279fda3c5e93f1845e38_Simple_human_dark.svg?v=1765025636" alt="Simple Human"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f8f08a662662256bf0952c_5f05b2c6057f36b46e357666_mvmt.avif?v=1765025636" alt="MVMT"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e9478afc058572df8875_Clove.avif?v=1765025636" alt="Clove"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/678e0eb1e79264d35bea0a5e_sill-logo-black.svg?v=1765025636" alt="Sill"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d43ca847d93ae380d14d05_juiceplus_black_logo_400px.svg?v=1765025636" alt="Juice Plus"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d431667cad4d3069faaafd_new_era_black_logo_400px.svg?v=1765025636" alt="New Era"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/676179778902937db618e87b_Reebok.avif?v=1765025636" alt="Reebok"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67443a858784f4c9ac1119a6_mrbeast.avif?v=1765025636" alt="MrBeast"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f583ee90c450dd7f33b9a_Arc_teryx_black.svg?v=1765025636" alt="Arc'teryx"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f585858bdb379a9aacdb7_RipCurl_black.svg?v=1765025636" alt="Rip Curl"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f455378b595bc63c5af91_Quicksilver_black.svg?v=1765025636" alt="Quicksilver"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/688338defc735726fbfc2647_Psychobunny.svg?v=1765025636" alt="Psycho Bunny"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/66e2a0e5b89b0fef3a1e9fcb_Babygold_logo.svg?v=1765025636" alt="Baby Gold"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d433c1c29968a8b452ac55_glamnetic_black_logo.svg?v=1765025636" alt="Glamnetic"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e860f7705d281cbcf381_Olipop.avif?v=1765025636" alt="Olipop"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d42d4311820bdd38151be3_princess_polly_black_logo.svg?v=1765025636" alt="Princess Polly"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f04b8ee97b4139f0f5eec9c_bokksu-1.svg?v=1765025636" alt="Bokksu"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a6217d606ce53594885d_dark.svg?v=1765025637" alt="Brand"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a0705c64239df6a2be0f_dark.svg?v=1765025637" alt="Brand"></div>
+                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05bbc12593861174dd63e3_timbuk2-1.svg?v=1765025636" alt="Timbuk2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>How Gorgias stands out</h2>
+        
+        <!-- Subsection 1 -->
+        <div class="feature-content-block">
+            <div class="feature-text">
+                <h3>Conversational AI with sales and support skills</h3>
+                <p>Gorgias's AI Agent delivers brand-aligned conversations, resolving 60% of support inquiries and increasing conversions 2.5x with tailored recommendations.</p>
+            </div>
+            <div class="feature-image">
+                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc9e564d3acb4c0a16ab_AI_for_Suport_Sales.avif?v=1765030455" alt="AI for Support & Sales" />
+            </div>
+        </div>
+
+        <!-- Subsection 2 -->
+        <div class="feature-content-block">
+            <div class="feature-text">
+                <h3>A natural extension of your Shopify store</h3>
+                <p>Edit Shopify orders, access real-time product information, and run promotional campaigns, without ever leaving Gorgias.</p>
+            </div>
+            <div class="feature-image">
+                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc9607b9bfb5edfe0ba1_Built_for_Shopify.avif?v=1765030455" alt="Built for Shopify" />
+            </div>
+        </div>
+
+        <!-- Subsection 3 -->
+        <div class="feature-content-block">
+            <div class="feature-text">
+                <h3>All your tech in one platform</h3>
+                <p>Bring all of your customer conversations and data together to create personalized and impactful interactions. Seamlessly integrate every channel and leverage 100+ ecommerce tools.</p>
+                <a href="#" class="feature-link">Visit Gorgias App store ↗</a>
+            </div>
+            <div class="feature-image">
+                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffcb8db6319418838d61c_Integrations.avif?v=1765030455" alt="Integrations" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhancing Journey Section -->
+    <section class="journey-section">
+        <h2>Enhancing every step of the shopping journey, from sales to support</h2>
+    </section>
+
+    <!-- Journey Feature Blocks -->
+    <section class="journey-blocks">
+        <!-- Support Suite Block -->
+        <div class="journey-block">
+            <div class="journey-block-content">
+                <h3>Step up support efficiency with AI</h3>
+                <p>Bring all of your support channels together into one platform with Gorgias Support Suite – automating up to 60% of customer inquiries to deliver support efficiency and savings on operational costs.</p>
+                <div class="journey-links">
+                    <a href="#" class="journey-link">Support Agent →</a>
+                    <a href="#" class="journey-link">Gorgias Helpdesk →</a>
+                    <a href="#" class="journey-link">Voice →</a>
+                    <a href="#" class="journey-link">SMS →</a>
+                </div>
+            </div>
+            <div class="journey-block-image">
+                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc83dd225796d4664359_Support_Suite_Static_Image.avif?v=1765030455" alt="Support Suite" />
+            </div>
+        </div>
+
+        <!-- Marketing Suite Block -->
+        <div class="journey-block reverse">
+            <div class="journey-block-content">
+                <h3>Proactively interact with shoppers in real-time</h3>
+                <p>Transform how you engage your shoppers with Gorgias Marketing Suite. Offer proactive chat campaigns that reduce bounce rates by 37% and scalable, personalized shopping assistance that increases conversions.</p>
+                <div class="journey-links">
+                    <a href="#" class="journey-link">Shopping Assistant →</a>
+                </div>
+            </div>
+            <div class="journey-block-image">
+                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc7f3731a1d5c2eaa29a_Marketing_Suite_Static_Image.avif?v=1765030455" alt="Marketing Suite" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Rated & Trusted Section -->
+    <section class="rated-section">
+        <h2>Rated & trusted by leading ecommerce brands</h2>
+        <div class="rating-badges-inline">
+            <div class="rating-badge-inline">⭐ 4.6 G2</div>
+            <div class="rating-badge-inline">⭐ 4.3 Shopify App Store</div>
+            <div class="rating-badge-inline">⭐ 4.1 Trustpilot</div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="testimonial-hero">
+            <div class="testimonial-image">
+                <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ff365cafad226492b7_psycho%20bunny.avif" alt="Testimonial" />
+            </div>
+            <div class="testimonial-content">
+                <p class="testimonial-quote-large">"I believe that AI combined with human agents is the future—that's where we're going to see perfect customer experience."</p>
+                <div class="testimonial-author-large">
+                    <div class="author-logo">
+                        <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ee35a469ee7c4fa536_psycho%20bunny.svg" alt="Psycho Bunny" />
+                    </div>
+                    <div class="author-details">
+                        <div class="author-avatar-small"></div>
+                        <div>
+                            <h4>Tosha Moyer</h4>
+                            <p>Senior CX Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Discover why more than 15,000 brands choose Gorgias</h2>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary btn-large">Sign up free</a>
+            <a href="#" class="btn btn-secondary-dark btn-large">Book a demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="#">+ Shopify</a></li>
+                    <li><a href="#">+ WooCommerce</a></li>
+                    <li><a href="#">+ BigCommerce</a></li>
+                    <li><a href="#">+ Magento</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Industries</h3>
+                <ul>
+                    <li><span class="non-clickable">Clothing & Apparel</span></li>
+                    <li><span class="non-clickable">Beauty & Cosmetics</span></li>
+                    <li><span class="non-clickable">Home & Garden</span></li>
+                    <li><span class="non-clickable">Subscriptions</span></li>
+                    <li><span class="non-clickable">Health & Wellness</span></li>
+                    <li><span class="non-clickable">Food & Beverage</span></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Gorgias</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Become a Partner</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© gorgias.com</div>
+            <div class="footer-legal">
+                <a href="#">Privacy</a>
+                <a href="#">Legal</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
