@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Conversational AI platform for Ecommerce | Gorgias</title>
+    <title>The Conversational AI platform for Ecommerce | Ecom Revenue Mastery</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,10 +17,12 @@
         :root {
             --primary-black: #1a1a1a;
             --primary-white: #ffffff;
-            --coral: #ff9b7a;
-            --coral-hover: #ff8562;
+            --coral: #ff7b5f;
+            --coral-hover: #ff6347;
             --peach-light: #ffe8e0;
             --peach-bg: #ffd4c4;
+            --peach-gradient-start: #ffd4c4;
+            --peach-gradient-end: #ffe8e0;
             --gray-50: #fafafa;
             --gray-100: #f5f5f5;
             --gray-200: #e5e5e7;
@@ -31,10 +33,16 @@
             --gray-700: #404040;
             --gray-800: #262626;
             --gray-900: #171717;
+            --nav-height: 70px;
+            --banner-height: 48px;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 400;
             line-height: 1.6;
             color: var(--primary-black);
@@ -46,54 +54,23 @@
 
         /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Top Banner */
@@ -105,264 +82,467 @@
             font-size: 14px;
             font-weight: 400;
             position: relative;
-            z-index: 100;
-            animation: fadeIn 0.6s ease-out;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: var(--banner-height);
+        }
+
+        .top-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .top-banner a {
             color: var(--primary-white);
             text-decoration: none;
-            margin-left: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-            transition: border-bottom 0.3s;
-            padding-bottom: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: opacity 0.3s;
         }
 
         .top-banner a:hover {
-            border-bottom: 1px solid rgba(255, 255, 255, 1);
+            opacity: 0.8;
+        }
+
+        .top-banner .arrow-icon {
+            width: 16px;
+            height: 16px;
         }
 
         /* Navigation */
         .navbar {
-            background: #1a1a1a;
-            backdrop-filter: blur(10px);
-            padding: 16px 50px;
+            background: var(--primary-black);
+            padding: 0 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: none;
             position: sticky;
             top: 0;
-            z-index: 99;
-            animation: fadeIn 0.8s ease-out;
+            z-index: 999;
+            height: var(--nav-height);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 500;
+            font-size: 22px;
+            font-weight: 600;
             color: var(--primary-white);
             text-decoration: none;
             letter-spacing: -0.5px;
-            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-center {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .logo:hover {
-            transform: scale(1.02);
+        .nav-item {
+            position: relative;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 36px;
-            align-items: center;
-            list-style: none;
-        }
-
-        .nav-links a {
+        .nav-link {
             color: var(--primary-white);
             text-decoration: none;
             font-size: 14px;
             font-weight: 400;
-            transition: color 0.3s;
-            position: relative;
+            padding: 24px 16px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.2s;
         }
 
-        .nav-links a::after {
-            content: '';
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        .nav-link .chevron {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:hover .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Mega Menu */
+        .mega-menu {
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-white);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 24px;
+            min-width: 600px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .mega-menu-section {
+            margin-bottom: 16px;
+        }
+
+        .mega-menu-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding: 0 12px;
+        }
+
+        .mega-menu-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--primary-black);
+            transition: background 0.2s;
+        }
+
+        .mega-menu-item:hover {
+            background: var(--gray-100);
+        }
+
+        .mega-menu-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mega-menu-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-black);
+        }
+
+        .mega-menu-text h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .mega-menu-text p {
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.4;
+        }
+
+        .mega-menu-divider {
+            height: 1px;
+            background: var(--gray-200);
+            margin: 16px 0;
+        }
+
+        .mega-menu-footer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding-top: 8px;
+        }
+
+        .mega-menu-footer-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--primary-black);
+            transition: background 0.2s;
+        }
+
+        .mega-menu-footer-item:hover {
+            background: var(--gray-100);
+        }
+
+        .mega-menu-footer-item h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+
+        .mega-menu-footer-item p {
+            font-size: 12px;
+            color: var(--gray-500);
+            line-height: 1.4;
+        }
+
+        /* Simple dropdown for Resources/Partners */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
             left: 0;
             background: var(--primary-white);
-            transition: width 0.3s;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
         }
 
-        .nav-links a:hover {
-            color: rgba(255, 255, 255, 0.8);
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .dropdown-item {
+            display: block;
+            padding: 10px 14px;
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: background 0.2s;
         }
 
+        .dropdown-item:hover {
+            background: var(--gray-100);
+        }
+
+        /* Nav Buttons */
         .nav-buttons {
             display: flex;
             gap: 12px;
             align-items: center;
         }
 
+        .nav-login {
+            color: var(--primary-white);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px 16px;
+            transition: opacity 0.2s;
+        }
+
+        .nav-login:hover {
+            opacity: 0.8;
+        }
+
         .btn {
-            padding: 11px 22px;
+            padding: 12px 20px;
             border-radius: 8px;
             font-size: 14px;
-            font-weight: 400;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s;
             text-decoration: none;
             border: none;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .btn-primary {
+            background: var(--coral);
+            color: var(--primary-white);
         }
 
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
+        .btn-primary:hover {
+            background: var(--coral-hover);
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--primary-white);
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-primary {
-            background: var(--coral);
-            color: var(--primary-black);
-            box-shadow: 0 2px 8px rgba(255, 155, 122, 0.3);
-            font-weight: 400;
-        }
-
-        .btn-primary:hover {
-            background: var(--coral-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 155, 122, 0.4);
         }
 
         .btn-secondary-dark {
             background: transparent;
             color: var(--primary-black);
-            border: 1.5px solid var(--primary-black);
+            border: 1px solid var(--primary-black);
         }
 
         .btn-secondary-dark:hover {
             background: var(--primary-black);
             color: var(--primary-white);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 15px;
+            border-radius: 10px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-white);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-white);
+            z-index: 998;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .mobile-menu-section {
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .mobile-menu-item {
+            display: block;
+            padding: 14px 0;
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mobile-menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .mobile-menu-buttons .btn {
+            width: 100%;
+            justify-content: center;
         }
 
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 120px 20px 100px;
-            background: linear-gradient(180deg, #ffd4c4 0%, #ffe8e0 100%);
+            padding: 100px 20px 80px;
+            background: linear-gradient(180deg, var(--peach-gradient-start) 0%, var(--peach-gradient-end) 100%);
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: radial-gradient(circle at 50% 0%, rgba(255, 155, 122, 0.15) 0%, transparent 60%);
-            pointer-events: none;
         }
 
         .hero-label {
             display: inline-block;
-            background: var(--primary-white);
-            padding: 8px 16px;
-            border-radius: 24px;
-            font-size: 12px;
-            font-weight: 400;
-            margin-bottom: 28px;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--primary-black);
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-            position: relative;
-            color: var(--primary-black);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: var(--gray-600);
         }
 
         .hero h1 {
-            font-size: 72px;
-            font-weight: 400;
-            line-height: 1.08;
-            margin-bottom: 28px;
-            max-width: 1100px;
+            font-size: clamp(40px, 7vw, 72px);
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
             letter-spacing: -2px;
-            animation: fadeInUp 1s ease-out 0.4s both;
-            position: relative;
             color: var(--primary-black);
         }
 
         .hero p {
-            font-size: 21px;
+            font-size: clamp(16px, 2vw, 20px);
             color: var(--gray-600);
-            margin-bottom: 44px;
-            max-width: 750px;
+            margin-bottom: 40px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.65;
-            animation: fadeInUp 1s ease-out 0.6s both;
-            position: relative;
-            font-weight: 400;
+            line-height: 1.6;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             justify-content: center;
-            margin-bottom: 80px;
-            animation: fadeInUp 1s ease-out 0.8s both;
-            position: relative;
-        }
-
-        .btn-large {
-            padding: 18px 38px;
-            font-size: 16px;
-            border-radius: 10px;
-            font-weight: 400;
+            flex-wrap: wrap;
         }
 
         /* Brand Logos */
         .brand-logos {
-            padding: 60px 40px 80px;
-            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
-            animation: fadeIn 1.2s ease-out;
+            padding: 60px 20px 80px;
+            background: linear-gradient(180deg, var(--peach-gradient-end) 0%, var(--peach-gradient-start) 100%);
         }
 
         .brand-logos-title {
             text-align: center;
             font-size: 14px;
             color: var(--gray-500);
-            margin-bottom: 50px;
-            font-weight: 400;
-            letter-spacing: 0.2px;
+            margin-bottom: 40px;
         }
 
         .logos-grid {
             display: flex;
-            gap: 60px;
-            align-items: center;
             overflow: hidden;
             position: relative;
             width: 100%;
@@ -381,19 +561,19 @@
 
         .logos-grid::before {
             left: 0;
-            background: linear-gradient(to right, #ffd4c4, transparent);
+            background: linear-gradient(to right, var(--peach-gradient-start), transparent);
         }
 
         .logos-grid::after {
             right: 0;
-            background: linear-gradient(to left, #ffd4c4, transparent);
+            background: linear-gradient(to left, var(--peach-gradient-start), transparent);
         }
 
         .logos-track {
             display: flex;
-            gap: 60px;
+            gap: 50px;
             align-items: center;
-            animation: scroll 40s linear infinite;
+            animation: scroll 50s linear infinite;
             width: max-content;
         }
 
@@ -401,92 +581,120 @@
             animation-play-state: paused;
         }
 
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
         .logo-item {
             flex-shrink: 0;
-            height: 40px;
-            width: auto;
-            opacity: 0.6;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: grayscale(100%);
+            height: 32px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
         }
 
         .logo-item:hover {
-            opacity: 1;
-            transform: scale(1.08);
-            filter: grayscale(0%);
+            opacity: 0.8;
         }
 
         .logo-item img {
             height: 100%;
             width: auto;
-            max-width: 150px;
+            max-width: 120px;
             object-fit: contain;
         }
 
         /* Features Section */
         .features {
-            padding: 120px 40px;
-            background: linear-gradient(180deg, #ffd4c4 0%, #ffe8e0 100%);
-            position: relative;
+            padding: 100px 20px;
+            background: linear-gradient(180deg, var(--peach-gradient-start) 0%, var(--peach-gradient-end) 100%);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .features h2 {
             text-align: center;
-            font-size: 48px;
-            font-weight: 400;
-            margin-bottom: 80px;
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 500;
+            margin-bottom: 60px;
             letter-spacing: -1px;
+        }
+
+        /* Feature Tabs */
+        .feature-tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .feature-tab {
+            padding: 12px 24px;
+            border: 1px solid var(--gray-300);
+            border-radius: 30px;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
             color: var(--primary-black);
         }
 
-        .feature-content-block {
-            max-width: 1300px;
-            margin: 0 auto 80px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
+        .feature-tab:hover {
+            border-color: var(--primary-black);
         }
 
-        .feature-content-block:last-child {
-            margin-bottom: 0;
+        .feature-tab.active {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            border-color: var(--primary-black);
+        }
+
+        /* Feature Content */
+        .feature-content {
+            display: none;
+        }
+
+        .feature-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
 
         .feature-text h3 {
-            font-size: 40px;
-            font-weight: 400;
-            margin-bottom: 24px;
-            line-height: 1.15;
-            letter-spacing: -0.8px;
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
         }
 
         .feature-text p {
-            font-size: 19px;
+            font-size: 17px;
             color: var(--gray-600);
             line-height: 1.7;
-            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: gap 0.2s;
+        }
+
+        .feature-link:hover {
+            gap: 10px;
         }
 
         .feature-image {
-            background: #f5f5f5;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            position: relative;
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.4s;
-            border: 1px solid var(--gray-200);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
         .feature-image img {
@@ -495,53 +703,34 @@
             display: block;
         }
 
-        .feature-image:hover {
-            transform: scale(1.02);
+        /* Journey Section */
+        .journey-section {
+            padding: 100px 20px 60px;
+            background: linear-gradient(180deg, var(--peach-gradient-end) 0%, var(--peach-gradient-start) 100%);
+            text-align: center;
         }
 
-        .feature-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        /* Product Suites - REMOVED, not using this anymore */
-
-        /* Feature Link in tabs */
-        .feature-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--primary-black);
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 15px;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-
-        .feature-link:hover {
-            gap: 8px;
+        .journey-section h2 {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 500;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.2;
+            letter-spacing: -1px;
         }
 
         /* Journey Blocks */
         .journey-blocks {
-            padding: 0 40px 80px;
-            background: linear-gradient(180deg, #ffd4c4 0%, #ffe8e0 100%);
+            padding: 60px 20px 100px;
+            background: linear-gradient(180deg, var(--peach-gradient-start) 0%, var(--peach-gradient-end) 100%);
         }
 
         .journey-block {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto 80px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 60px;
             align-items: center;
         }
 
@@ -557,26 +746,68 @@
             direction: ltr;
         }
 
+        .journey-suite-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--coral);
+            margin-bottom: 12px;
+        }
+
         .journey-block-content h3 {
-            font-size: 36px;
-            font-weight: 400;
-            margin-bottom: 20px;
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 500;
+            margin-bottom: 16px;
             line-height: 1.2;
             letter-spacing: -0.5px;
         }
 
         .journey-block-content p {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--gray-600);
             line-height: 1.7;
-            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .journey-learn-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
             margin-bottom: 24px;
+            transition: gap 0.2s;
+        }
+
+        .journey-learn-more:hover {
+            gap: 10px;
+        }
+
+        .journey-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .journey-link {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s;
+        }
+
+        .journey-link:hover {
+            gap: 8px;
         }
 
         .journey-block-image {
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
         .journey-block-image img {
@@ -585,86 +816,70 @@
             display: block;
         }
 
-        .journey-links {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-top: 24px;
-        }
-
-        .journey-link {
-            color: var(--primary-black);
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 15px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .journey-link:hover {
-            gap: 8px;
-        }
-
-        .journey-link::after {
-            content: '';
-            display: inline-block;
-            width: 0;
-            height: 2px;
-            background: var(--primary-black);
-            transition: width 0.3s;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e7 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-600);
-            font-size: 18px;
-            font-weight: 400;
-        }
-
-        /* Journey Section */
-        .journey-section {
-            padding: 100px 40px 80px;
-            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
+        /* Rated Section */
+        .rated-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, var(--peach-gradient-end) 0%, var(--peach-gradient-start) 100%);
             text-align: center;
         }
 
-        .journey-section h2 {
-            font-size: 48px;
-            font-weight: 400;
-            max-width: 900px;
-            margin: 0 auto;
-            line-height: 1.2;
-            letter-spacing: -1px;
+        .rated-section h2 {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 500;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+        }
+
+        .rating-badges {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: var(--primary-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .rating-badge-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .rating-badge-text {
+            font-size: 16px;
+            font-weight: 500;
         }
 
         /* Testimonials */
         .testimonials {
-            padding: 0;
-            background: #1a1a1a;
+            background: var(--primary-black);
             color: var(--primary-white);
+        }
+
+        .testimonial-slider {
             position: relative;
             overflow: hidden;
         }
 
-        .testimonial-hero {
+        .testimonial-slide {
+            display: none;
+        }
+
+        .testimonial-slide.active {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            max-width: 1400px;
-            margin: 0 auto;
-            align-items: center;
-            min-height: 600px;
+            min-height: 500px;
         }
 
         .testimonial-image {
-            width: 100%;
-            height: 100%;
+            position: relative;
         }
 
         .testimonial-image img {
@@ -674,59 +889,66 @@
         }
 
         .testimonial-content {
-            padding: 80px 60px;
-        }
-
-        .testimonial-quote-large {
-            font-size: 32px;
-            line-height: 1.4;
-            margin-bottom: 40px;
-            font-weight: 400;
-            font-style: normal;
-        }
-
-        .testimonial-author-large {
+            padding: 60px 50px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            justify-content: center;
         }
 
-        .author-logo img {
-            height: 40px;
+        .testimonial-quote {
+            font-size: clamp(20px, 2.5vw, 28px);
+            line-height: 1.4;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .testimonial-logo img {
+            height: 32px;
             width: auto;
         }
 
-        .author-details {
+        .testimonial-person {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
-        .author-avatar-small {
+        .testimonial-avatar {
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background: var(--gray-600);
+            overflow: hidden;
+            background: var(--gray-700);
         }
 
-        .author-details h4 {
-            font-size: 16px;
-            font-weight: 400;
-            margin-bottom: 4px;
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .author-details p {
+        .testimonial-name {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .testimonial-role {
             font-size: 14px;
             color: var(--gray-400);
-            font-weight: 400;
         }
 
         .testimonial-dots {
             display: flex;
             justify-content: center;
             gap: 8px;
-            padding: 30px 0;
-            background: #1a1a1a;
+            padding: 24px;
+            background: var(--primary-black);
         }
 
         .dot {
@@ -742,146 +964,109 @@
             background: var(--primary-white);
         }
 
-        /* Rated Section */
-        .rated-section {
-            padding: 80px 40px;
-            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
-            text-align: center;
-        }
-
-        .rated-section h2 {
-            font-size: 42px;
-            font-weight: 400;
-            margin-bottom: 40px;
-            letter-spacing: -0.5px;
-        }
-
-        .rating-badges-inline {
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .rating-badge-inline {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            font-weight: 400;
-            padding: 12px 24px;
-            background: var(--primary-white);
-            border-radius: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        }
-
         /* CTA Section */
         .cta-section {
-            padding: 120px 40px;
+            padding: 100px 20px;
             text-align: center;
-            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
-            color: var(--primary-black);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(255, 155, 122, 0.1) 0%, transparent 60%);
-            pointer-events: none;
+            background: linear-gradient(180deg, var(--peach-gradient-start) 0%, var(--peach-gradient-end) 100%);
         }
 
         .cta-section h2 {
-            font-size: 52px;
-            font-weight: 400;
-            margin-bottom: 48px;
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 500;
+            margin-bottom: 40px;
             letter-spacing: -1px;
-            position: relative;
-            color: var(--primary-black);
         }
 
         .cta-buttons {
             display: flex;
-            gap: 18px;
+            gap: 12px;
             justify-content: center;
-            position: relative;
-        }
-
-        .btn-white {
-            background: var(--primary-white);
-            color: var(--primary-black);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1.5px solid var(--primary-black);
-        }
-
-        .btn-white:hover {
-            background: var(--primary-black);
-            color: var(--primary-white);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Video Section */
-        .video-section {
-            padding: 0 40px 80px;
-            background: linear-gradient(180deg, #ffe8e0 0%, #ffd4c4 100%);
-        }
-
-        .video-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .video-container img,
-        .video-container video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .video-placeholder {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e7 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-600);
-            font-size: 20px;
-            font-weight: 400;
+            flex-wrap: wrap;
         }
 
         /* Footer */
         .footer {
             background: var(--gray-900);
             color: var(--primary-white);
-            padding: 90px 40px 50px;
+            padding: 80px 40px 40px;
+        }
+
+        .footer-top {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand-logo {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand-text {
+            font-size: 14px;
+            color: var(--gray-400);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-newsletter {
+            display: flex;
+            gap: 8px;
+        }
+
+        .footer-newsletter input {
+            padding: 12px 16px;
+            border: 1px solid var(--gray-700);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--primary-white);
+            font-size: 14px;
+            width: 200px;
+        }
+
+        .footer-newsletter input::placeholder {
+            color: var(--gray-500);
+        }
+
+        .footer-newsletter button {
+            padding: 12px 20px;
+            background: var(--coral);
+            border: none;
+            border-radius: 8px;
+            color: var(--primary-white);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .footer-newsletter button:hover {
+            background: var(--coral-hover);
         }
 
         .footer-content {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 70px;
-            margin-bottom: 70px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
         }
 
         .footer-column h3 {
-            font-size: 13px;
-            font-weight: 400;
-            margin-bottom: 24px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.5px;
             color: var(--gray-400);
         }
 
@@ -890,47 +1075,30 @@
         }
 
         .footer-column ul li {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .footer-column a {
             color: var(--gray-400);
             text-decoration: none;
             font-size: 14px;
-            transition: all 0.3s;
-            display: inline-block;
-            font-weight: 400;
+            transition: color 0.2s;
         }
 
         .footer-column a:hover {
             color: var(--primary-white);
-            transform: translateX(3px);
-        }
-
-        .footer-column .non-clickable {
-            color: var(--gray-400);
-            font-size: 14px;
-            font-weight: 400;
-            cursor: default;
-            display: inline-block;
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 36px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid var(--gray-800);
+            padding-top: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-bottom > div:first-child {
-            color: var(--gray-500);
-            font-size: 14px;
-            font-weight: 400;
+            gap: 20px;
         }
 
         .footer-legal {
@@ -943,147 +1111,433 @@
             color: var(--gray-500);
             text-decoration: none;
             font-size: 13px;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
         .footer-legal a:hover {
             color: var(--gray-300);
         }
 
+        .footer-copyright {
+            color: var(--gray-500);
+            font-size: 13px;
+        }
+
         /* Responsive */
-        @media (max-width: 968px) {
-            .hero h1 {
-                font-size: 52px;
+        @media (max-width: 1024px) {
+            .nav-center {
+                display: none;
             }
 
-            .hero p {
-                font-size: 19px;
+            .mobile-menu-toggle {
+                display: block;
             }
 
-            .feature-content-block,
-            .journey-block,
-            .testimonial-hero {
+            .feature-content.active {
                 grid-template-columns: 1fr;
-                gap: 50px;
+                gap: 40px;
+            }
+
+            .journey-block {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
 
             .journey-block.reverse {
                 direction: ltr;
             }
 
-            .nav-links {
-                display: none;
-            }
-
-            .testimonial-grid {
+            .testimonial-slide.active {
                 grid-template-columns: 1fr;
             }
 
-            .journey-block-content h3 {
-                font-size: 32px;
+            .testimonial-image {
+                height: 300px;
             }
 
-            .feature-text h3 {
-                font-size: 32px;
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
             }
 
-            .features h2,
-            .testimonials h2,
-            .cta-section h2,
-            .journey-section h2,
-            .rated-section h2 {
-                font-size: 32px;
-            }
-
-            .testimonial-quote-large {
-                font-size: 24px;
-            }
-
-            .testimonial-content {
-                padding: 40px 20px;
-            }
-
-            .logos-track {
-                animation-duration: 30s;
+            .footer-top {
+                flex-direction: column;
+                gap: 30px;
             }
         }
 
-        @media (max-width: 640px) {
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn-large {
-                width: 100%;
+        @media (max-width: 768px) {
+            .top-banner {
+                font-size: 12px;
+                padding: 12px 16px;
             }
 
             .navbar {
-                padding: 16px 20px;
+                padding: 0 20px;
             }
 
-            .logos-track {
-                animation-duration: 25s;
+            .logo {
+                font-size: 18px;
             }
 
-            .logo-item {
-                height: 30px;
+            .nav-buttons .btn {
+                display: none;
             }
 
-            .logo-item img {
-                max-width: 100px;
+            .nav-login {
+                display: none;
             }
 
-            .journey-section h2 {
-                font-size: 28px;
+            .hero {
+                padding: 60px 20px;
             }
 
-            .testimonial-hero {
-                min-height: auto;
+            .features {
+                padding: 60px 20px;
             }
 
-            .testimonial-quote-large {
-                font-size: 20px;
+            .feature-tabs {
+                gap: 6px;
             }
 
-            .rating-badges-inline {
+            .feature-tab {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .journey-section {
+                padding: 60px 20px 40px;
+            }
+
+            .journey-blocks {
+                padding: 40px 20px 60px;
+            }
+
+            .journey-block {
+                gap: 30px;
+                margin-bottom: 60px;
+            }
+
+            .rating-badges {
+                gap: 20px;
+            }
+
+            .rating-badge {
+                padding: 12px 16px;
+            }
+
+            .testimonial-content {
+                padding: 40px 24px;
+            }
+
+            .cta-section {
+                padding: 60px 20px;
+            }
+
+            .footer {
+                padding: 60px 20px 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .footer-bottom {
                 flex-direction: column;
-                gap: 16px;
+                text-align: center;
             }
         }
+
+        @media (max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-newsletter {
+                flex-direction: column;
+            }
+
+            .footer-newsletter input {
+                width: 100%;
+            }
+        }
+
+        /* Page Styles for Privacy/Terms */
+        .page-header {
+            background: linear-gradient(180deg, var(--peach-gradient-start) 0%, var(--peach-gradient-end) 100%);
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 500;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .page-header p {
+            color: var(--gray-600);
+            font-size: 16px;
+        }
+
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 100px;
+        }
+
+        .page-content h2 {
+            font-size: 24px;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 32px 0 12px;
+        }
+
+        .page-content p {
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .page-content ul {
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+
+        .page-content ul li {
+            margin-bottom: 8px;
+        }
+
+        .page-content a {
+            color: var(--coral);
+            text-decoration: none;
+        }
+
+        .page-content a:hover {
+            text-decoration: underline;
+        }
     </style>
-    <script>
-    </script>
 </head>
 <body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <div class="top-banner-content">
+            <span>Join us for Moments That Matter: Meet the Modern Helpdesk. September 10 at 12PM EST.</span>
+            <a href="#">
+                Save your seat
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <a href="#" class="logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <svg viewBox="0 0 32 32" fill="currentColor">
+                <circle cx="16" cy="16" r="14" fill="#ff7b5f"/>
+                <path d="M10 16h12M16 10v12" stroke="white" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            gorgias
+            Ecom Revenue Mastery
         </a>
-        <ul class="nav-links">
-            <li><a href="#">Product tour ▾</a></li>
-            <li><a href="#">Enterprise</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Partners ▾</a></li>
-            <li><a href="#">Resources ▾</a></li>
-        </ul>
+
+        <div class="nav-center">
+            <a href="#" class="nav-link">Product tour</a>
+            
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    Products
+                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </a>
+                <div class="mega-menu">
+                    <div class="mega-menu-grid">
+                        <div>
+                            <div class="mega-menu-title">Products</div>
+                            <a href="#" class="mega-menu-item">
+                                <div class="mega-menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        <path d="M3 9h18M9 21V9"/>
+                                    </svg>
+                                </div>
+                                <div class="mega-menu-text">
+                                    <h4>Helpdesk</h4>
+                                    <p>All messages from every channel in one centralized inbox</p>
+                                </div>
+                            </a>
+                            <a href="#" class="mega-menu-item">
+                                <div class="mega-menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="9"/>
+                                        <path d="M12 8v4l3 3"/>
+                                    </svg>
+                                </div>
+                                <div class="mega-menu-text">
+                                    <h4>AI Agent</h4>
+                                    <p>Smart, scalable, and still so you</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <div class="mega-menu-title">Channel Add-ons</div>
+                            <a href="#" class="mega-menu-item">
+                                <div class="mega-menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72"/>
+                                    </svg>
+                                </div>
+                                <div class="mega-menu-text">
+                                    <h4>Voice</h4>
+                                    <p>Support by phone, from your Helpdesk</p>
+                                </div>
+                            </a>
+                            <a href="#" class="mega-menu-item">
+                                <div class="mega-menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="mega-menu-text">
+                                    <h4>SMS</h4>
+                                    <p>Respond to inbound text messages</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mega-menu-divider"></div>
+                    <div class="mega-menu-footer">
+                        <a href="#" class="mega-menu-footer-item">
+                            <div>
+                                <h4>Product Tour</h4>
+                                <p>Explore through 3-minute interactive product tour</p>
+                            </div>
+                        </a>
+                        <a href="#" class="mega-menu-footer-item">
+                            <div>
+                                <h4>What's New</h4>
+                                <p>Spring Product Release highlights</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="nav-link">Enterprise</a>
+            <a href="#" class="nav-link">Pricing</a>
+
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    Partners
+                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Become a Tech Partner</a>
+                    <a href="#" class="dropdown-item">Build an App</a>
+                    <a href="#" class="dropdown-item">Browse App Store</a>
+                    <a href="#" class="dropdown-item">Become an Agency Partner</a>
+                    <a href="#" class="dropdown-item">Find a Partner</a>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    Resources
+                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Blog</a>
+                    <a href="#" class="dropdown-item">Playbooks</a>
+                    <a href="#" class="dropdown-item">Ebooks</a>
+                    <a href="#" class="dropdown-item">Customer Stories</a>
+                    <a href="#" class="dropdown-item">Academy</a>
+                    <a href="#" class="dropdown-item">Help Center</a>
+                    <a href="#" class="dropdown-item">Community</a>
+                </div>
+            </div>
+        </div>
+
         <div class="nav-buttons">
-            <a href="#" class="btn btn-secondary">Log in</a>
+            <a href="#" class="nav-login">Log in</a>
+            <a href="#" class="btn btn-secondary">Book a demo</a>
             <a href="#" class="btn btn-primary">Sign up free</a>
         </div>
+
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12h18M3 6h18M3 18h18"/>
+            </svg>
+        </button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-section">
+            <div class="mobile-menu-title">Products</div>
+            <a href="#" class="mobile-menu-item">Helpdesk</a>
+            <a href="#" class="mobile-menu-item">AI Agent</a>
+            <a href="#" class="mobile-menu-item">Voice</a>
+            <a href="#" class="mobile-menu-item">SMS</a>
+        </div>
+        <div class="mobile-menu-section">
+            <div class="mobile-menu-title">Company</div>
+            <a href="#" class="mobile-menu-item">Product Tour</a>
+            <a href="#" class="mobile-menu-item">Enterprise</a>
+            <a href="#" class="mobile-menu-item">Pricing</a>
+            <a href="#" class="mobile-menu-item">Partners</a>
+        </div>
+        <div class="mobile-menu-section">
+            <div class="mobile-menu-title">Resources</div>
+            <a href="#" class="mobile-menu-item">Blog</a>
+            <a href="#" class="mobile-menu-item">Customer Stories</a>
+            <a href="#" class="mobile-menu-item">Help Center</a>
+        </div>
+        <div class="mobile-menu-buttons">
+            <a href="#" class="btn btn-secondary-dark">Log in</a>
+            <a href="#" class="btn btn-primary">Sign up free</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-label">Built For Ecommerce</div>
+        <div class="hero-label">Built for ecommerce</div>
         <h1>Sell more and resolve support inquiries with Conversational AI</h1>
         <p>Where customer conversations feel personal, generate sales, and fuel your brand's growth</p>
         <div class="hero-buttons">
@@ -1092,25 +1546,15 @@
         </div>
     </section>
 
-    <!-- Video Section -->
-    <section class="video-section">
-        <div class="video-container">
-            <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ff365cafad226492b7_psycho%20bunny.avif" alt="Gorgias AI Agent Demo" />
-        </div>
-    </section>
-
     <!-- Brand Logos -->
     <section class="brand-logos">
         <p class="brand-logos-title">Trusted by 15,000 brands on their journey from first order to hundreds of millions in sales globally</p>
         <div class="logos-grid">
             <div class="logos-track">
-                <!-- First set of logos -->
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67fd279fda3c5e93f1845e38_Simple_human_dark.svg?v=1765025636" alt="Simple Human"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f8f08a662662256bf0952c_5f05b2c6057f36b46e357666_mvmt.avif?v=1765025636" alt="MVMT"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e9478afc058572df8875_Clove.avif?v=1765025636" alt="Clove"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/678e0eb1e79264d35bea0a5e_sill-logo-black.svg?v=1765025636" alt="Sill"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d43ca847d93ae380d14d05_juiceplus_black_logo_400px.svg?v=1765025636" alt="Juice Plus"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d431667cad4d3069faaafd_new_era_black_logo_400px.svg?v=1765025636" alt="New Era"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/676179778902937db618e87b_Reebok.avif?v=1765025636" alt="Reebok"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67443a858784f4c9ac1119a6_mrbeast.avif?v=1765025636" alt="MrBeast"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f583ee90c450dd7f33b9a_Arc_teryx_black.svg?v=1765025636" alt="Arc'teryx"></div>
@@ -1121,18 +1565,11 @@
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d433c1c29968a8b452ac55_glamnetic_black_logo.svg?v=1765025636" alt="Glamnetic"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e860f7705d281cbcf381_Olipop.avif?v=1765025636" alt="Olipop"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d42d4311820bdd38151be3_princess_polly_black_logo.svg?v=1765025636" alt="Princess Polly"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f04b8ee97b4139f0f5eec9c_bokksu-1.svg?v=1765025636" alt="Bokksu"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a6217d606ce53594885d_dark.svg?v=1765025637" alt="Brand"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a0705c64239df6a2be0f_dark.svg?v=1765025637" alt="Brand"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05bbc12593861174dd63e3_timbuk2-1.svg?v=1765025636" alt="Timbuk2"></div>
-                
-                <!-- Duplicate set for seamless loop -->
+                <!-- Duplicate for seamless scroll -->
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67fd279fda3c5e93f1845e38_Simple_human_dark.svg?v=1765025636" alt="Simple Human"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f8f08a662662256bf0952c_5f05b2c6057f36b46e357666_mvmt.avif?v=1765025636" alt="MVMT"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e9478afc058572df8875_Clove.avif?v=1765025636" alt="Clove"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/678e0eb1e79264d35bea0a5e_sill-logo-black.svg?v=1765025636" alt="Sill"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d43ca847d93ae380d14d05_juiceplus_black_logo_400px.svg?v=1765025636" alt="Juice Plus"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d431667cad4d3069faaafd_new_era_black_logo_400px.svg?v=1765025636" alt="New Era"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/676179778902937db618e87b_Reebok.avif?v=1765025636" alt="Reebok"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67443a858784f4c9ac1119a6_mrbeast.avif?v=1765025636" alt="MrBeast"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/673f583ee90c450dd7f33b9a_Arc_teryx_black.svg?v=1765025636" alt="Arc'teryx"></div>
@@ -1143,134 +1580,201 @@
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d433c1c29968a8b452ac55_glamnetic_black_logo.svg?v=1765025636" alt="Glamnetic"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67f4e860f7705d281cbcf381_Olipop.avif?v=1765025636" alt="Olipop"></div>
                 <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/68d42d4311820bdd38151be3_princess_polly_black_logo.svg?v=1765025636" alt="Princess Polly"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f04b8ee97b4139f0f5eec9c_bokksu-1.svg?v=1765025636" alt="Bokksu"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a6217d606ce53594885d_dark.svg?v=1765025637" alt="Brand"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05a0705c64239df6a2be0f_dark.svg?v=1765025637" alt="Brand"></div>
-                <div class="logo-item"><img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/5f05bbc12593861174dd63e3_timbuk2-1.svg?v=1765025636" alt="Timbuk2"></div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
     <section class="features">
-        <h2>How Gorgias stands out</h2>
-        
-        <!-- Subsection 1 -->
-        <div class="feature-content-block">
-            <div class="feature-text">
-                <h3>Conversational AI with sales and support skills</h3>
-                <p>Gorgias's AI Agent delivers brand-aligned conversations, resolving 60% of support inquiries and increasing conversions 2.5x with tailored recommendations.</p>
+        <div class="features-container">
+            <h2>How we stand out</h2>
+            
+            <div class="feature-tabs">
+                <button class="feature-tab active" onclick="showFeature(0)">AI for Support & Sales</button>
+                <button class="feature-tab" onclick="showFeature(1)">Built for Shopify</button>
+                <button class="feature-tab" onclick="showFeature(2)">One Unified View</button>
             </div>
-            <div class="feature-image">
-                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc9e564d3acb4c0a16ab_AI_for_Suport_Sales.avif?v=1765030455" alt="AI for Support & Sales" />
-            </div>
-        </div>
 
-        <!-- Subsection 2 -->
-        <div class="feature-content-block">
-            <div class="feature-text">
-                <h3>A natural extension of your Shopify store</h3>
-                <p>Edit Shopify orders, access real-time product information, and run promotional campaigns, without ever leaving Gorgias.</p>
+            <div class="feature-content active" id="feature-0">
+                <div class="feature-text">
+                    <h3>Conversational AI with sales and support skills</h3>
+                    <p>Our AI Agent delivers brand-aligned conversations, resolving 60% of support inquiries and increasing conversions 2.5x with tailored recommendations.</p>
+                </div>
+                <div class="feature-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc9e564d3acb4c0a16ab_AI_for_Suport_Sales.avif?v=1765030455" alt="AI for Support & Sales">
+                </div>
             </div>
-            <div class="feature-image">
-                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc9607b9bfb5edfe0ba1_Built_for_Shopify.avif?v=1765030455" alt="Built for Shopify" />
-            </div>
-        </div>
 
-        <!-- Subsection 3 -->
-        <div class="feature-content-block">
-            <div class="feature-text">
-                <h3>All your tech in one platform</h3>
-                <p>Bring all of your customer conversations and data together to create personalized and impactful interactions. Seamlessly integrate every channel and leverage 100+ ecommerce tools.</p>
-                <a href="#" class="feature-link">Visit Gorgias App store ↗</a>
+            <div class="feature-content" id="feature-1">
+                <div class="feature-text">
+                    <h3>A natural extension of your Shopify store</h3>
+                    <p>Edit Shopify orders, access real-time product information, and run promotional campaigns, without ever leaving our platform.</p>
+                </div>
+                <div class="feature-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc9607b9bfb5edfe0ba1_Built_for_Shopify.avif?v=1765030455" alt="Built for Shopify">
+                </div>
             </div>
-            <div class="feature-image">
-                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffcb8db6319418838d61c_Integrations.avif?v=1765030455" alt="Integrations" />
+
+            <div class="feature-content" id="feature-2">
+                <div class="feature-text">
+                    <h3>All your tech in one platform</h3>
+                    <p>Bring all of your customer conversations and data together to create personalized and impactful interactions. Seamlessly integrate every channel and leverage 100+ ecommerce tools.</p>
+                    <a href="#" class="feature-link">Visit App store ↗</a>
+                </div>
+                <div class="feature-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffcb8db6319418838d61c_Integrations.avif?v=1765030455" alt="Integrations">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Enhancing Journey Section -->
+    <!-- Journey Section -->
     <section class="journey-section">
         <h2>Enhancing every step of the shopping journey, from sales to support</h2>
     </section>
 
-    <!-- Journey Feature Blocks -->
+    <!-- Journey Blocks -->
     <section class="journey-blocks">
-        <!-- Support Suite Block -->
         <div class="journey-block">
             <div class="journey-block-content">
+                <div class="journey-suite-label">Support Suite</div>
                 <h3>Step up support efficiency with AI</h3>
-                <p>Bring all of your support channels together into one platform with Gorgias Support Suite – automating up to 60% of customer inquiries to deliver support efficiency and savings on operational costs.</p>
+                <p>Bring all of your support channels together into one platform with our Support Suite – automating up to 60% of customer inquiries to deliver support efficiency and savings on operational costs.</p>
+                <a href="#" class="journey-learn-more">Learn more ↗</a>
                 <div class="journey-links">
                     <a href="#" class="journey-link">Support Agent →</a>
-                    <a href="#" class="journey-link">Gorgias Helpdesk →</a>
+                    <a href="#" class="journey-link">Helpdesk →</a>
                     <a href="#" class="journey-link">Voice →</a>
                     <a href="#" class="journey-link">SMS →</a>
                 </div>
             </div>
             <div class="journey-block-image">
-                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc83dd225796d4664359_Support_Suite_Static_Image.avif?v=1765030455" alt="Support Suite" />
+                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc83dd225796d4664359_Support_Suite_Static_Image.avif?v=1765030455" alt="Support Suite">
             </div>
         </div>
 
-        <!-- Marketing Suite Block -->
         <div class="journey-block reverse">
             <div class="journey-block-content">
+                <div class="journey-suite-label">Marketing Suite</div>
                 <h3>Proactively interact with shoppers in real-time</h3>
-                <p>Transform how you engage your shoppers with Gorgias Marketing Suite. Offer proactive chat campaigns that reduce bounce rates by 37% and scalable, personalized shopping assistance that increases conversions.</p>
+                <p>Transform how you engage your shoppers with our Marketing Suite. Offer proactive chat campaigns that reduce bounce rates by 37% and scalable, personalized shopping assistance that increases conversions.</p>
+                <a href="#" class="journey-learn-more">Learn more ↗</a>
                 <div class="journey-links">
                     <a href="#" class="journey-link">Shopping Assistant →</a>
                 </div>
             </div>
             <div class="journey-block-image">
-                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc7f3731a1d5c2eaa29a_Marketing_Suite_Static_Image.avif?v=1765030455" alt="Marketing Suite" />
+                <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/67cffc7f3731a1d5c2eaa29a_Marketing_Suite_Static_Image.avif?v=1765030455" alt="Marketing Suite">
             </div>
         </div>
     </section>
 
-    <!-- Rated & Trusted Section -->
+    <!-- Rated Section -->
     <section class="rated-section">
         <h2>Rated & trusted by leading ecommerce brands</h2>
-        <div class="rating-badges-inline">
-            <div class="rating-badge-inline">⭐ 4.6 G2</div>
-            <div class="rating-badge-inline">⭐ 4.3 Shopify App Store</div>
-            <div class="rating-badge-inline">⭐ 4.1 Trustpilot</div>
+        <div class="rating-badges">
+            <div class="rating-badge">
+                <svg class="rating-badge-icon" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="15" stroke="#FF492C" stroke-width="2"/>
+                    <text x="16" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#FF492C">G2</text>
+                </svg>
+                <span class="rating-badge-text">4.6 G2</span>
+            </div>
+            <div class="rating-badge">
+                <svg class="rating-badge-icon" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 4l3.5 7 7.5 1-5.5 5.3 1.3 7.7-6.8-3.6-6.8 3.6 1.3-7.7L5 12l7.5-1L16 4z" fill="#95BF47"/>
+                </svg>
+                <span class="rating-badge-text">4.3 Shopify App Store</span>
+            </div>
+            <div class="rating-badge">
+                <svg class="rating-badge-icon" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 4l3 9h9.5l-7.7 5.6 2.9 9-7.7-5.6-7.7 5.6 2.9-9L3.5 13H13l3-9z" fill="#00B67A"/>
+                </svg>
+                <span class="rating-badge-text">4.1 Trustpilot</span>
+            </div>
         </div>
     </section>
 
     <!-- Testimonials -->
     <section class="testimonials">
-        <div class="testimonial-hero">
-            <div class="testimonial-image">
-                <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ff365cafad226492b7_psycho%20bunny.avif" alt="Testimonial" />
-            </div>
-            <div class="testimonial-content">
-                <p class="testimonial-quote-large">"I believe that AI combined with human agents is the future—that's where we're going to see perfect customer experience."</p>
-                <div class="testimonial-author-large">
-                    <div class="author-logo">
-                        <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ee35a469ee7c4fa536_psycho%20bunny.svg" alt="Psycho Bunny" />
+        <div class="testimonial-slider">
+            <div class="testimonial-slide active" id="testimonial-0">
+                <div class="testimonial-image">
+                    <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ff365cafad226492b7_psycho%20bunny.avif" alt="Psycho Bunny">
+                </div>
+                <div class="testimonial-content">
+                    <p class="testimonial-quote">"I believe that AI combined with human agents is the future—that's where we're going to see perfect customer experience."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-logo">
+                            <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46ee35a469ee7c4fa536_psycho%20bunny.svg" alt="Psycho Bunny">
+                        </div>
+                        <div class="testimonial-person">
+                            <div class="testimonial-avatar">
+                                <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d46f44d211a86a5de3467_tosha%20moyer.avif" alt="Tosha Moyer">
+                            </div>
+                            <div>
+                                <div class="testimonial-name">Tosha Moyer</div>
+                                <div class="testimonial-role">Senior CX Manager</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="author-details">
-                        <div class="author-avatar-small"></div>
-                        <div>
-                            <h4>Tosha Moyer</h4>
-                            <p>Senior CX Manager</p>
+                </div>
+            </div>
+
+            <div class="testimonial-slide" id="testimonial-1">
+                <div class="testimonial-image">
+                    <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d47470665e449c7c867f8_babygold.avif" alt="Baby Gold">
+                </div>
+                <div class="testimonial-content">
+                    <p class="testimonial-quote">"Nowadays, people expect quick responses and rapid assistance. AI Agent is perfect to meet these expectations."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-logo">
+                            <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677bb48eb9446d22e82d24be_babygold.svg" alt="Baby Gold">
+                        </div>
+                        <div class="testimonial-person">
+                            <div class="testimonial-avatar"></div>
+                            <div>
+                                <div class="testimonial-name">Sindi Melgar</div>
+                                <div class="testimonial-role">Customer Service Manager</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-slide" id="testimonial-2">
+                <div class="testimonial-image">
+                    <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677d4728e4b8f71db04a48f6_shinesty%20(1).avif" alt="Shinesty">
+                </div>
+                <div class="testimonial-content">
+                    <p class="testimonial-quote">"Customers can self-serve for 60% of interactions, which means our team has more time to focus on tickets that need human attention."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-logo">
+                            <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/677e48f8a8adf59e0d42c334_Shinesty.svg" alt="Shinesty">
+                        </div>
+                        <div class="testimonial-person">
+                            <div class="testimonial-avatar">
+                                <img src="https://cdn.prod.website-files.com/5e78f62c08f1bb8c2d788576/67f4ea21640d7539aa2dcc75_Molly%20Wallace%20Kerrigan.avif" alt="Molly Wallace Kerrigan">
+                            </div>
+                            <div>
+                                <div class="testimonial-name">Molly Wallace Kerrigan</div>
+                                <div class="testimonial-role">VP Marketing</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="testimonial-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+            <span class="dot active" onclick="showTestimonial(0)"></span>
+            <span class="dot" onclick="showTestimonial(1)"></span>
+            <span class="dot" onclick="showTestimonial(2)"></span>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <h2>Discover why more than 15,000 brands choose Gorgias</h2>
+        <h2>Discover why more than 15,000 brands choose us</h2>
         <div class="cta-buttons">
             <a href="#" class="btn btn-primary btn-large">Sign up free</a>
             <a href="#" class="btn btn-secondary-dark btn-large">Book a demo</a>
@@ -1279,6 +1783,17 @@
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-brand-logo">Ecom Revenue Mastery</div>
+                <p class="footer-brand-text">The Conversational AI platform for ecommerce.</p>
+                <div class="footer-newsletter">
+                    <input type="email" placeholder="Enter your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+
         <div class="footer-content">
             <div class="footer-column">
                 <h3>Product</h3>
@@ -1287,41 +1802,127 @@
                     <li><a href="#">+ WooCommerce</a></li>
                     <li><a href="#">+ BigCommerce</a></li>
                     <li><a href="#">+ Magento</a></li>
+                    <li><a href="#">Support by Phone</a></li>
+                    <li><a href="#">Latest Releases</a></li>
+                    <li><a href="#">Pricing</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Industries</h3>
                 <ul>
-                    <li><span class="non-clickable">Clothing & Apparel</span></li>
-                    <li><span class="non-clickable">Beauty & Cosmetics</span></li>
-                    <li><span class="non-clickable">Home & Garden</span></li>
-                    <li><span class="non-clickable">Subscriptions</span></li>
-                    <li><span class="non-clickable">Health & Wellness</span></li>
-                    <li><span class="non-clickable">Food & Beverage</span></li>
+                    <li><a href="#">Clothing & Apparel</a></li>
+                    <li><a href="#">Beauty & Cosmetics</a></li>
+                    <li><a href="#">Home & Garden</a></li>
+                    <li><a href="#">Subscriptions</a></li>
+                    <li><a href="#">Health & Wellness</a></li>
+                    <li><a href="#">Food & Beverage</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Compare</h3>
+                <ul>
+                    <li><a href="#">Zendesk</a></li>
+                    <li><a href="#">Kustomer</a></li>
+                    <li><a href="#">Gladly</a></li>
+                    <li><a href="#">Intercom</a></li>
+                    <li><a href="#">Richpanel</a></li>
+                    <li><a href="#">Re:amaze</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Playbooks</a></li>
+                    <li><a href="#">Ebooks</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Customer Stories</a></li>
+                    <li><a href="#">App Store</a></li>
+                    <li><a href="#">Help Center</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Company</h3>
                 <ul>
-                    <li><a href="#">About Gorgias</a></li>
+                    <li><a href="#">About Us</a></li>
                     <li><a href="#">Careers</a></li>
                     <li><a href="#">Events</a></li>
                     <li><a href="#">Sustainability</a></li>
                     <li><a href="#">Become a Partner</a></li>
+                    <li><a href="#">Partner Login</a></li>
                 </ul>
             </div>
         </div>
+
         <div class="footer-bottom">
-            <div>© gorgias.com</div>
             <div class="footer-legal">
-                <a href="#">Privacy</a>
+                <a href="privacy.html">Privacy</a>
                 <a href="#">Legal</a>
-                <a href="#">Terms of Use</a>
-                <a href="#">Terms of Service</a>
+                <a href="terms.html">Terms of Use</a>
+                <a href="terms.html">Terms of Service</a>
                 <a href="#">Security</a>
                 <a href="#">Accessibility</a>
             </div>
+            <div class="footer-copyright">© 2025 Ecom Revenue Mastery. All rights reserved.</div>
         </div>
     </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Feature Tabs
+        function showFeature(index) {
+            // Update tabs
+            const tabs = document.querySelectorAll('.feature-tab');
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+
+            // Update content
+            const contents = document.querySelectorAll('.feature-content');
+            contents.forEach((content, i) => {
+                content.classList.toggle('active', i === index);
+            });
+        }
+
+        // Testimonial Slider
+        let currentTestimonial = 0;
+        const totalTestimonials = 3;
+
+        function showTestimonial(index) {
+            currentTestimonial = index;
+            
+            // Update slides
+            const slides = document.querySelectorAll('.testimonial-slide');
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+
+            // Update dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+            showTestimonial(currentTestimonial);
+        }, 6000);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!menu.contains(e.target) && !toggle.contains(e.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
