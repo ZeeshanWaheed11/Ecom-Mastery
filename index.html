@@ -958,6 +958,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 80px;
         }
 
         .footer-brand {
@@ -1016,12 +1017,10 @@
         }
 
         .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 40px;
-            margin-bottom: 60px;
+            flex: 1;
         }
 
         .footer-column h3 {
@@ -1087,10 +1086,10 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-center {
-                display: none;
-            }
+	        @media (max-width: 1024px) {
+	            .nav-center {
+	                display: none;
+	            }
 
             .mobile-menu-toggle {
                 display: block;
@@ -1114,19 +1113,15 @@
                 grid-template-columns: 1fr;
             }
 
-            .testimonial-image {
-                height: 300px;
-            }
+	            .testimonial-image {
+	                height: 300px;
+	            }
 
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-top {
-                flex-direction: column;
-                gap: 30px;
-            }
-        }
+	            .footer-top {
+	                flex-direction: column;
+	                gap: 30px;
+	            }
+	        }
 
         @media (max-width: 768px) {
             .top-banner {
@@ -1607,42 +1602,41 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div class="footer-brand-logo">
-                    <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/Ecom_revenue_master_logo.webp?v=1765826006" alt="Ecom Revenue Mastery">
-                </div>
-                <p class="footer-brand-text">The Conversational AI platform for ecommerce.</p>
-                <div class="footer-newsletter">
-                    <input type="email" placeholder="Enter your email">
-                    <button>Subscribe</button>
-                </div>
-            </div>
-        </div>
-
-	        <div class="footer-content">
-	            <div class="footer-column">
-	                <h3>Product</h3>
-	                <ul>
-	                    <li><a href="#">+ Shopify</a></li>
-	                    <li><a href="#">+ WooCommerce</a></li>
-	                    <li><a href="#">+ BigCommerce</a></li>
-	                    <li><a href="#">+ Magento</a></li>
-	                    <li><a href="#">+ PrestaShop</a></li>
-	                </ul>
+	    <!-- Footer -->
+	    <footer class="footer">
+	        <div class="footer-top">
+	            <div class="footer-brand">
+	                <div class="footer-brand-logo">
+	                    <img src="https://cdn.shopify.com/s/files/1/0780/0376/5469/files/Ecom_revenue_master_logo.webp?v=1765826006" alt="Ecom Revenue Mastery">
+	                </div>
+	                <p class="footer-brand-text">The Conversational AI platform for ecommerce.</p>
+	                <div class="footer-newsletter">
+	                    <input type="email" placeholder="Enter your email">
+	                    <button>Subscribe</button>
+	                </div>
+	            </div>
+	            <div class="footer-content">
+	                <div class="footer-column">
+	                    <h3>Product</h3>
+	                    <ul>
+	                        <li><a href="#">+ Shopify</a></li>
+	                        <li><a href="#">+ WooCommerce</a></li>
+	                        <li><a href="#">+ BigCommerce</a></li>
+	                        <li><a href="#">+ Magento</a></li>
+	                        <li><a href="#">+ PrestaShop</a></li>
+	                    </ul>
+	                </div>
 	            </div>
 	        </div>
 
-        <div class="footer-bottom">
-            <div class="footer-legal">
-                <a href="privacy.html">Privacy</a>
-                <a href="terms.html">Terms of Service</a>
-            </div>
-            <div class="footer-copyright">© 2025 Ecom Revenue Mastery. All rights reserved.</div>
-        </div>
-    </footer>
+	        <div class="footer-bottom">
+	            <div class="footer-legal">
+	                <a href="privacy.html">Privacy</a>
+	                <a href="terms.html">Terms of Service</a>
+	            </div>
+	            <div class="footer-copyright">© 2025 Ecom Revenue Mastery. All rights reserved.</div>
+	        </div>
+	    </footer>
 
     <script>
         // Mobile Menu Toggle
